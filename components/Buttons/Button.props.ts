@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
-import { DetailedProp } from '../../@types';
-export interface ButtonProps extends DetailedProp {
+import { DetailedPropButt } from '../../@types';
+export interface ButtonProps extends DetailedPropButt {
   aps: 'primary' | 'ghost'
   children:ReactNode
 }
