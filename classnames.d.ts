@@ -1,3 +1,4 @@
+
 declare type ClassValue = string | number | ClassDictionary | ClassArray;
 
 interface ClassDictionary {
