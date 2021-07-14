@@ -1,18 +1,48 @@
+import axios from 'axios'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { MenuItem } from '../@types/menu.i'
 import Button from '../components/Buttons/Button'
 import Htags from '../components/Htags/Htags'
 import Rating from '../components/Rating/Rating'
 import { WithLayout } from '../layout/layout'
 import styles from '../styles/Home.module.css'
 
-function Home():JSX.Element {
+function Home({ firsCategory, data }: HomeProps): JSX.Element {
+  console.log(data);
   return (
+    <>
     <Htags tag="h1">Text
         <Button aps='primary'>butt</Button>
-        <Rating rating={2} />
+      <Rating rating={2} />
+      
       </Htags>
-    
+      {
+        data.map((val:MenuItem) => {
+         
+          return (
+            <li key={val._id.secondCategory}>{val._id.secondCategory}</li>
+          )
+        })
+      }
+    </>  
   )
 }
 export default WithLayout(Home)
+
+export const getStaticProps:GetStaticProps = async () => {
+  const firsCategory = 0
+
+  const {data} = await axios.get(process.env.DOMAIN + '/menu')
+  return {
+    props: {
+      firsCategory,
+      data
+    }
+  }
+}
+interface HomeProps extends Record<string, unknown> {
+	data: MenuItem[];
+	firstCategory: number;
+}
