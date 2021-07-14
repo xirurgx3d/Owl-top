@@ -4,19 +4,21 @@ import cn from 'classnames'
 import Header from './Header/Header'
 import Sidebar from './Sidebar/Sidebar'
 import Footer from './Footer/Footer'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useRef } from 'react'
 
 const Layout = ({children}:LayoutProps): JSX.Element => {
-
+  const bodyRef = useRef<HTMLDivElement>(null);
   return (
-    <>
-      <Header />
-      <div>
-        <Sidebar />
-        {children}
-      </div>
-      <Footer />
-    </>  
+    <div className={styles.wrapper}>
+			
+			<Header className={styles.header} />
+			<Sidebar className={styles.sidebar} />
+			<main className={styles.body} ref={bodyRef} tabIndex={0} role='main'>
+				{children}
+			</main>
+			<Footer className={styles.footer} />
+			
+		</div> 
   )
 }
 

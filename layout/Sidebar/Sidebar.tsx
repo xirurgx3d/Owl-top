@@ -1,12 +1,15 @@
 import { LayoutProps } from './Sidebar.props'
-import styles from './layout.module.css'
+import styles from './Sidebar.module.css'
 import cn from 'classnames'
 
-export default ({...prop}:LayoutProps): JSX.Element => {
+export default ({className,...props}:LayoutProps): JSX.Element => {
 
   return (
     <>
-      <div {...prop}>Sidebar</div>
+      <div className={cn(className as string, styles.sidebar)} {...props}>
+			
+			
+		</div>
     </>  
   )
 }
