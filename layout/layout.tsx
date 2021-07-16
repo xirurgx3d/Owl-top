@@ -5,6 +5,7 @@ import Header from './Header/Header'
 import Sidebar from './Sidebar/Sidebar'
 import Footer from './Footer/Footer'
 import { FunctionComponent, useRef } from 'react'
+import { AppContextProvider, IAppContext } from '../context/app.context'
 
 const Layout = ({children}:LayoutProps): JSX.Element => {
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -22,12 +23,14 @@ const Layout = ({children}:LayoutProps): JSX.Element => {
   )
 }
 
-export const WithLayout = <T extends Record<string,unknown>>(Component:FunctionComponent<T>) => {
-  return function withLayoutComponent(props:T):JSX.Element {
+export const WithLayout = <T extends Record<string, unknown>>(Component: FunctionComponent<T>) => {
+  return function withLayoutComponent(props: any): JSX.Element {
     return (
+      <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
       <Layout>
         <Component {...props} />
       </Layout>
+      </AppContextProvider>
     )
   }
 }

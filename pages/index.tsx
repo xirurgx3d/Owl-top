@@ -7,6 +7,7 @@ import Button from '../components/Buttons/Button'
 import Htags from '../components/Htags/Htags'
 import Rating from '../components/Rating/Rating'
 import { WithLayout } from '../layout/layout'
+import Sidebar from '../layout/Sidebar/Sidebar'
 import styles from '../styles/Home.module.css'
 
 function Home({ firsCategory, data }: HomeProps): JSX.Element {
@@ -17,6 +18,7 @@ function Home({ firsCategory, data }: HomeProps): JSX.Element {
       <Rating rating={2} />
       
       </Htags>
+      <Sidebar />
       {
         data && data.map((val:MenuItem) => {
          
@@ -35,6 +37,7 @@ export const getStaticProps:GetStaticProps = async () => {
   let data = null
   try {
     const res = await axios.get(process.env.DOMAIN + '/menu')
+    
     data = res.data
   } catch (error) {
     new Error()
