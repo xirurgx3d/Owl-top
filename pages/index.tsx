@@ -10,7 +10,6 @@ import { WithLayout } from '../layout/layout'
 import styles from '../styles/Home.module.css'
 
 function Home({ firsCategory, data }: HomeProps): JSX.Element {
-  console.log(data);
   return (
     <>
     <Htags tag="h1">Text
@@ -19,7 +18,7 @@ function Home({ firsCategory, data }: HomeProps): JSX.Element {
       
       </Htags>
       {
-        data.map((val:MenuItem) => {
+        data && data.map((val:MenuItem) => {
          
           return (
             <li key={val._id.secondCategory}>{val._id.secondCategory}</li>
@@ -33,16 +32,22 @@ export default WithLayout(Home)
 
 export const getStaticProps:GetStaticProps = async () => {
   const firsCategory = 0
-
-  const {data} = await axios.get(process.env.DOMAIN + '/menu')
+  let data = null
+  try {
+    const res = await axios.get(process.env.DOMAIN + '/menu')
+    data = res.data
+  } catch (error) {
+    new Error()
+  }
   return {
     props: {
       firsCategory,
       data
     }
   }
+  
 }
 interface HomeProps extends Record<string, unknown> {
 	data: MenuItem[];
 	firstCategory: number;
-}
+} 
