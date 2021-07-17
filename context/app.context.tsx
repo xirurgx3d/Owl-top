@@ -3,21 +3,21 @@ import { MenuItem } from "../@types/menu.i";
 import { TopLevelCategory } from "../@types/page.i";
 
 export interface IAppContext {
-  menu: MenuItem[];
-	firstCategory: TopLevelCategory.Courses;
+  data: MenuItem[];
+	firsCategory: TopLevelCategory.Courses;
 	setMenu?: (newMenu: MenuItem[]) => void;
 }
 
-export const AppContext = createContext<IAppContext>(({ menu: [], firstCategory: TopLevelCategory.Courses }))
+export const AppContext = createContext<IAppContext>(({ data: [], firsCategory: TopLevelCategory.Courses }))
 
-export const AppContextProvider = ({ menu, firstCategory, children }: IAppContext & { children: ReactNode }): JSX.Element => {
-  console.log(menu);
-  const [menuState, setMenuState] = useState<MenuItem[]>(menu);
+export const AppContextProvider = ({ data, firsCategory, children }: IAppContext & { children: ReactNode }): JSX.Element => {
+
+  const [menuState, setMenuState] = useState<MenuItem[]>(data);
 	const setMenu = (newMenu: MenuItem[]) => {
 		setMenuState(newMenu);
 	};
 
-	return <AppContext.Provider value={{ menu: menuState, firstCategory, setMenu }}>
+	return <AppContext.Provider value={{ data: menuState, firsCategory, setMenu }}>
 		{children}
 	</AppContext.Provider>;
 }
