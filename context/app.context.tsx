@@ -1,3 +1,4 @@
+import styles from './Menu.module.css';
 import { createContext, ReactNode, useState } from "react";
 import { MenuItem } from "../@types/menu.i";
 import { TopLevelCategory } from "../@types/page.i";

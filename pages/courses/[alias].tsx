@@ -52,5 +52,5 @@ export const getStaticProps:GetStaticProps = async ({params}:GetStaticPropsConte
 }
 interface CoursesProps extends Record<string, unknown> {
 	data: MenuItem[];
-	firstCategory: number;
+	firsCategory: number;
 } 
