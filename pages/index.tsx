@@ -18,15 +18,7 @@ function Home({ firsCategory, data }: HomeProps): JSX.Element {
       <Rating rating={2} />
       
       </Htags>
-      <Sidebar />
-      {
-        data && data.map((val:MenuItem) => {
-         
-          return (
-            <li key={val._id.secondCategory}>{val._id.secondCategory}</li>
-          )
-        })
-      }
+      
     </>  
   )
 }

@@ -4,10 +4,13 @@ import styles from './Menu.module.css';
 import cn from 'classnames';
 import { PageItem } from "../../@types/menu.i";
 import Link from 'next/link';
+import { useRouter } from "next/dist/client/router";
+import { route } from "next/dist/next-server/server/router";
 
 export const Menu = (): JSX.Element => {
-  const {data,firsCategory,setMenu} = useContext(AppContext)
-  console.log(data);
+  const { data, firsCategory, setMenu } = useContext(AppContext)
+	const router = useRouter()
+	
 
   const buildFirstLevel = () => {
 		return (
@@ -30,11 +33,13 @@ export const Menu = (): JSX.Element => {
   const buildSecondLevel = (menuItem: PageItem[]) => {
 		return (
 			<ul className={styles.secondBlock}>
-				{menuItem.map(m => {
+				{menuItem && menuItem.map(m => {
 					
 					return (
-						<li key={m._id}>
-							<Link href={`/${m.alias}`}>{m.title}</Link>
+						<li className={cn(styles.firstLevel, {
+              [styles.firstLevelActive]: m.alias == router.asPath.split('/')[2]
+            })} key={m._id}>
+              <Link href={`/courses/${m.alias}`}>{m.title}</Link>
 						</li>
 					);
 				})}

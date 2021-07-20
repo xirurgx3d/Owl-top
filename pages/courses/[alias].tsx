@@ -7,10 +7,11 @@ import { WithLayout } from '../../layout/layout'
 
 import styles from '../styles/Home.module.css'
 
-function Courses({ firsCategory, data }: CoursesProps): JSX.Element {
+function Courses({page, params }: CoursesProps): JSX.Element {
+  console.log(page);
   return (
     <>
-      <h1>hello</h1>
+      <h1>hello {params && params.alias}</h1>
     </>  
   )
 }
@@ -32,25 +33,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps:GetStaticProps = async ({params}:GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async ({ params }: GetStaticPropsContext) => {
   const firsCategory = 0
-  let data = null
-  console.log(params);
   try {
-    const res = await axios.get<MenuItem>(process.env.DOMAIN + '/alias')
-    data = res.data
-  } catch (error) {
-    new Error()
-  }
-  return {
-    props: {
-      firsCategory,
-      data
+    const { data } = await axios.get(process.env.DOMAIN + '/menu')
+    const {data:page} = await axios.get<MenuItem>(process.env.DOMAIN + '/alias')
+
+    return {
+      props: {
+        firsCategory,
+        data,
+        params,
+        page
+      }
     }
+  } catch (error) {
+    return {
+			notFound: true
+		};
   }
   
 }
 interface CoursesProps extends Record<string, unknown> {
 	data: MenuItem[];
-	firsCategory: number;
+  firsCategory: number
+  params:any
 } 
