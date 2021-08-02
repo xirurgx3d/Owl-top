@@ -2,17 +2,17 @@ import axios from 'axios'
 import { GetStaticPaths, GetStaticPathsContext, GetStaticProps, GetStaticPropsContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import React from 'react'
 import { MenuItem } from '../../@types/menu.i'
 import { WithLayout } from '../../layout/layout'
+import { TopPageComponent } from '../../page-components/TopPageComponent/TopPageComponent'
 
 import styles from '../styles/Home.module.css'
 
 function Courses({page, params }: CoursesProps): JSX.Element {
-  console.log(page);
+  
   return (
-    <>
-      <h1>hello {params && params.alias}</h1>
-    </>  
+    <TopPageComponent page={page} params={params} />
   )
 }
 export default WithLayout(Courses)
@@ -22,6 +22,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const { data } = await axios.get(process.env.DOMAIN + '/menu')
     path = data.flatMap((v: MenuItem) => v.pages.map(r => '/courses/' + r.alias))
+    return {
+      paths: path,
+      fallback: true,
+    }
   } catch (error) {
     new Error()
   }
