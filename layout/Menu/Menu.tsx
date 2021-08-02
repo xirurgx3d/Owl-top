@@ -15,7 +15,7 @@ export const Menu = (): JSX.Element => {
   const buildFirstLevel = () => {
 		return (
 			<ul className={styles.firstLevelList}>
-				{data.map(m => (
+				{data && data.map(m => (
 					<li key={m._id.secondCategory}>
 						
 							<a>
